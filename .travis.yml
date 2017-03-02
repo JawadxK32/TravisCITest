@@ -1,0 +1,32 @@
+language: python
+
+#which versions of python to test against
+python:
+  - "2.7"
+  - "3.3"
+
+# command to install dependencies
+install:
+  - pip install codecov
+  - pip install coverage
+
+#  - pip install ./lecture7/
+#  - pip install -r ./lecture7/requirements.txt
+
+script: 
+  - python -m unittest discover -v ./lecture7/ # command to run unit test
+  - coverage run ./lecture7/test.py # command to run code coverage
+
+#can do additional things, say send out reports, which we will discuss next time
+after_success:
+  - codecov --token=a5b2d640-2ad1-41d4-8ab0-a2b52796bfe8 # upload coverage report to codecov.io
+#please work 
+#why can't I close the stupid issue'
+deploy:
+  provider: s3
+  access_key_id: AKIAJHZERHUDKRXZAVCA #populate with your own AWS access key
+  secret_access_key: t9kq0axOHzYgWll5e/hGo/n/T6VfBT9y/eBGXU2E #populate with your own AWS secret key
+  bucket: cps847-6479
+  local-dir: desktop/500526749
+  region: us-west-2
+
